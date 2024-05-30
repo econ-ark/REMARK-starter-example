@@ -1,3 +1,6 @@
+
+(This is defunct -- the REMARK repo is the appropriate place to look)
+
 # A starter repository for creating a REMARK.
 
 A REMARK `(R[eplications/eproductions] and Explorations Made using ARK)` is a self-contained project whose computational results should be reproducible indefinitely into the future across platforms (Windows, Mac, Linux, ...).
