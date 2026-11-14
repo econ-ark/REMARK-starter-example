@@ -3,7 +3,7 @@
 # `uv sync --locked`. After changing this file, run `uv lock` and commit both files.
 [project]
 name = "remark-starter-example"
-version = "1.0.0"
+version = "1.0.1"
 description = "A starter example of a REMARK: a reproducible project built with Econ-ARK"
 readme = "README.md"
 license = "Apache-2.0"

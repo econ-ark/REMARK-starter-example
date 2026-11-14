@@ -74,7 +74,7 @@ the Econ-ARK team tests a submitted REMARK. In a clone of
 name: REMARK-starter-example
 remote: https://github.com/econ-ark/REMARK-starter-example
 title: REMARK Starter Example
-tag: v1.0.0
+tag: v1.0.1
 ```
 
 and run:
@@ -121,7 +121,7 @@ uv, and `postBuild` installs the packages in `uv.lock` and makes them the notebo
 | `REMARK-starter-example.tex`, `latex/` | The LaTeX document, its bibliography and the compiled PDF | Optional |
 | `reproduce_textetc.sh` | Compiles the LaTeX document | Optional |
 
-Every tier also requires a tagged release; this one is tagged `v1.0.0`. A REMARK whose
+Every tier also requires a tagged release; this one is tagged `v1.0.1`. A REMARK whose
 `reproduce.sh` takes five minutes or more should also have a `reproduce_min.sh` that
 reproduces some of the results quickly. This one is fast enough not to need it.
 

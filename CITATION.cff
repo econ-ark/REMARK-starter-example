@@ -15,7 +15,7 @@ authors:
     given-names: "Christopher D."
     affiliation: "Johns Hopkins University"
     orcid: "https://orcid.org/0000-0003-3732-9312"
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-11-14
 url: "https://github.com/econ-ark/REMARK-starter-example"
 repository-code: "https://github.com/econ-ark/REMARK-starter-example"
