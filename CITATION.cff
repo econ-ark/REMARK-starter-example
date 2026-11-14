@@ -11,8 +11,6 @@ abstract: >-
   in uv.lock, and reproduce.sh regenerates every result. It meets Tier 2 (Reproducible
   REMARK) of the REMARK Standard.
 authors:
-  - family-names: "Seth"
-    given-names: "Mridul"
   - family-names: "Carroll"
     given-names: "Christopher D."
     affiliation: "Johns Hopkins University"
