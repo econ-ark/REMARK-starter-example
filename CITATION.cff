@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "REMARK Starter Example"
+abstract: >-
+  A small, complete REMARK (Replications/Reproductions and Explorations Made using ARK) to
+  copy when starting a new one. It solves a consumption-saving model with preference shocks
+  and a higher interest rate on borrowing than on saving, using Econ-ARK's HARK toolkit,
+  and draws its consumption functions; it also shows how code kept in a module, a LaTeX
+  document and an interactive dashboard fit into a REMARK. Every package version is pinned
+  in uv.lock, and reproduce.sh regenerates every result. It meets Tier 2 (Reproducible
+  REMARK) of the REMARK Standard.
+authors:
+  - family-names: "Seth"
+    given-names: "Mridul"
+  - family-names: "Carroll"
+    given-names: "Christopher D."
+    affiliation: "Johns Hopkins University"
+    orcid: "https://orcid.org/0000-0003-3732-9312"
+version: 1.0.0
+date-released: 2026-11-14
+url: "https://github.com/econ-ark/REMARK-starter-example"
+repository-code: "https://github.com/econ-ark/REMARK-starter-example"
+license: Apache-2.0
+keywords:
+  - "REMARK"
+  - "Econ-ARK"
+  - "HARK"
+  - "reproducibility"
+  - "template"
+  - "computational economics"
+  - "consumption-saving models"
+references:
+  - type: conference-paper
+    authors:
+      - family-names: "Carroll"
+        given-names: "Christopher D."
+      - family-names: "Kaufman"
+        given-names: "Alexander M."
+      - family-names: "Kazil"
+        given-names: "Jacqueline L."
+      - family-names: "Palmer"
+        given-names: "Nathan M."
+      - family-names: "White"
+        given-names: "Matthew N."
+    title: "The Econ-ARK and HARK: Open Source Tools for Computational Economics"
+    collection-title: "Proceedings of the 17th Python in Science Conference"
+    start: 25
+    end: 30
+    year: 2018
+    doi: "10.25080/Majora-4af1f417-004"

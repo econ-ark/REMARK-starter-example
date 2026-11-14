@@ -1,0 +1,12 @@
+#!/bin/bash
+# Binder: install the packages pinned in uv.lock into .venv, and make that environment the
+# "Python 3" kernel, so that the notebooks run with exactly those versions.
+#
+# The kernel goes into the Jupyter server's own environment (NB_PYTHON_PREFIX, set by
+# repo2docker), replacing its "python3" kernel. A kernel installed with --user would be
+# ignored: Jupyter looks in the environment it runs in before the user's folders.
+set -euo pipefail
+
+uv sync --locked --no-cache
+.venv/bin/python -m ipykernel install --prefix "${NB_PYTHON_PREFIX:?}" --name python3 \
+    --display-name "Python 3 (packages from uv.lock)"

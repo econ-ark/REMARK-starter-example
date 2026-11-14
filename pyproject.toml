@@ -1,0 +1,32 @@
+# The packages this REMARK needs. uv.lock records the exact version of every package,
+# including the packages these depend on; reproduce.sh installs from it with
+# `uv sync --locked`. After changing this file, run `uv lock` and commit both files.
+[project]
+name = "remark-starter-example"
+version = "1.0.0"
+description = "A starter example of a REMARK: a reproducible project built with Econ-ARK"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = "==3.14.*"
+dependencies = [
+    "econ-ark==0.17.2",
+    "sympy",  # econ-ark 0.17.2 imports sympy without declaring it
+    "matplotlib",
+    "numpy",
+    # Executing the notebooks (reproduce.sh)
+    "ipykernel",
+    "nbconvert",
+    # The dashboard
+    "ipywidgets",
+    "voila",
+    # Working with the notebooks interactively
+    "jupyterlab",
+]
+
+# Not a package to install: uv installs only the dependencies above.
+[tool.uv]
+package = false
+# Resolve only releases published before this date, so that `uv lock` gives the same
+# versions whenever it is run. Move it forward when you want newer packages.
+exclude-newer = "2026-10-31T00:00:00Z"

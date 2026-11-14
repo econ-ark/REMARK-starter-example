@@ -1,0 +1,7 @@
+# Built or written on the host; the image makes its own
+.venv
+results
+.cache
+**/__pycache__
+**/.ipynb_checkpoints
+.git

@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx}\usepackage{hyperref}\usepackage{natbib}
-\graphicspath{ {../figures/} }
+% reproduce_textetc.sh compiles this document from the repository's root folder
+\graphicspath{ {figures/} }
 
 \title{REMARK \LaTeX{} Template}
 \author{Econ-ARK Team}
@@ -17,7 +18,7 @@ The \href{https://github.com/econ-ark/REMARK}{REMARK} infrastructure permits the
 
 \section{Introduction}
 
-\cite{carroll_et_al-proc-scipy-2018} describe plans for the \href{https://econ-ark.org}{Econ-ARK} toolkit, among which is the development of an infrastructure that will allow for the construction of \href{https://econ-ark.org/materials/REMARK}{REMARK} repositories whose aim is to make it easy to construct reproducible scientific computational results.
+\cite{carroll_et_al-proc-scipy-2018} describe plans for the \href{https://econ-ark.org}{Econ-ARK} toolkit, among which is the development of an infrastructure that will allow for the construction of \href{https://econ-ark.org/materials/?select=REMARK}{REMARK} repositories whose aim is to make it easy to construct reproducible scientific computational results.
 
 \section{Other Parts of the Toolkit}
 
@@ -25,14 +26,18 @@ The chief component of the toolkit is the \href{https://github.com/econ-ark/HARK
 
 Here are some examples produced by the toolkit:
 
-\begin{figure}
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.8]{cFunc}
+\caption{Consumption functions of a consumer with preference shocks and a higher interest rate on borrowing than on saving, one for each value of the shock}
 \end{figure}
-\begin{figure}
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.8]{dist}
+\caption{A histogram of random draws from a normal distribution, with the distribution's density}
 \end{figure}
 
-\bibliography{./latex/REMARK-starter-example}
+\clearpage % place the figures before the references
+\bibliography{latex/REMARK-starter-example}
 
 \end{document}
-

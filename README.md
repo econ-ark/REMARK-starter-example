@@ -1,118 +1,172 @@
+# REMARK Starter Example
 
-(This is defunct -- the REMARK repo is the appropriate place to look)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/econ-ark/REMARK-starter-example/HEAD?labpath=code%2Fpython%2FREMARK-starter-example.ipynb)
+The main notebook on Binder, in JupyterLab.
 
-# A starter repository for creating a REMARK.
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/econ-ark/REMARK-starter-example/HEAD?urlpath=voila%2Frender%2Fdashboard%2FREMARK-starter-example-dashboard.ipynb)
+The dashboard on Binder, with its code hidden.
 
-A REMARK `(R[eplications/eproductions] and Explorations Made using ARK)` is a self-contained project whose computational results should be reproducible indefinitely into the future across platforms (Windows, Mac, Linux, ...).
+A REMARK (R[eplications/eproductions] and Explorations Made using ARK) is a self-contained
+project whose computational results anyone can reproduce, on any platform, now and years
+from now. REMARKs are listed in the [REMARK catalog](https://github.com/econ-ark/REMARK) and
+shown on [econ-ark.org](https://econ-ark.org/materials/?select=REMARK).
 
-The minimal requirements of a REMARK, articulated below, reflect the infrastructure needed to keep track of REMARKs and to guarantee their reproducibility.  (No other elements of the ARK toolkit need be used).
+This repository is a small but complete REMARK, meant to be copied when you start your own.
+It meets **Tier 2 (Reproducible REMARK)** of the
+[REMARK Standard](https://github.com/econ-ark/REMARK/blob/main/STANDARD.md). For a REMARK
+that is a whole paper, see [BufferStockTheory](https://github.com/econ-ark/BufferStockTheory).
 
-This is a starter repository to start building your own REMARKs.  
+## What it computes
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/econ-ark/REMARK-template/master?filepath=resources%2Fcode%2Ftemplate-example-notebook.ipynb) Binder link for the main notebook in this repository.
+- `code/python/REMARK-starter-example.ipynb` solves a consumption-saving model with HARK's
+  `KinkyPrefConsumerType`: a consumer with shocks to their preferences, who pays a higher
+  interest rate when borrowing than they earn when saving. It draws the consumption function
+  at each value of the shock (`figures/cFunc.pdf`).
+- The same notebook calls a function in `code/python/custom_code.py` that draws a histogram of
+  random numbers (`figures/dist.pdf`). The function takes a seed, so every run draws the same
+  numbers.
+- `REMARK-starter-example.tex` is a short LaTeX document that includes both figures.
+- `dashboard/REMARK-starter-example-dashboard.ipynb` redraws the consumption functions as a
+  slider changes the consumer's risk aversion.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/econ-ark/REMARK-template/master?urlpath=voila%2Frender%2Fresources%2Fdashboard%2Fdashboard.ipynb) Binder link for a voila dashboard in this repository.
+## Reproducing the results
 
-A maximalist example, in the form of a complete paper with all computational results, is [BufferStockTheory](https://github.com/econ-ark/BufferStockTheory), corresponding to the paper [Theoretical Foundations of Buffer Stock Saving](https://econ-ark.github.io/BufferStockTheory). This example is one of many possible ways you might structure a REMARK.
+`reproduce.sh` regenerates every figure. It installs the exact package versions recorded in
+`uv.lock`, then executes the notebook: the figures are written to `figures/`, and an executed
+copy of the notebook, with all its output, to `results/`. Once the packages are installed it
+takes about a minute. (The dashboard computes no results, so it is left for you to open.)
+Use whichever of these suits you.
 
-REMARKs are instantiated in the form of a git repository, whose directory structure is exemplified in this starter repo:
-```
-- reproduce.sh : a unix bash script (required)
-- requirements.txt : (required, if code in Python; see explanation below)
-- README.md : (required; includes links to execute REMARK materials)
-- code/ (required)
-  - python/ (if python is used)
-	  - [files-needed-for-reproduce-script-to-work].py
-	  - [jupyter-notebook-with-same-name-as-repo].ipynb
-	  - ...
-  - name_of_other_language/ (if other language is used)
-	  - [files-needed-for-reproduce-script-to-work]
-- [REMARKname].tex (if reproduce.sh has code that compiles such a document)
-- [REMARKname].pdf (the result of compiling [REMARKname].tex, if it exists)
-- latex/ (required if [REMARKname].tex is present)
-  - [latex support files necessary for compiling the paper, like .bib, .sty, etc]
-- figures/ (optional)
-  - [REMARKname].tex expects figures in this directory
-  - ....
-- equations/  (optional)
-  - [REMARKname].tex can create or uses latex eqns in this directory
-- slides (optional)
-  - [REMARKname]-Slides.tex
-  - [supporting files for slides, if any]
-- [REMARKname].cff : mandatory CFF file (https://citation-file-format.github.io/)
-- [REMARKname-OriginalPaper].bib (if this is a replication or reproduction)
-- dashboard (optional)
-  - [REMARKname]-dashboard.ipynb
-- .....
-```
-As you can see the structure of the REMARK is largely optional and can be molded as required.
+### With Docker
 
-## `bash` script(s)
-
-The only strict requirements are the `reproduce.sh` bash script and the [versioned requirements.txt](https://www.idkrtm.com/what-is-the-python-requirements-txt/) file (or a [Dockerfile](https://docs.docker.com/engine/reference/builder/) in case of non-Python code; see the documentation for [`nbreproduce`](https://github.com/econ-ark/nbreproduce#readme)).
-
-These bash scripts can contain any number of sequential steps, like running a python script, building the latex document, etc. Look at the bash script is this repository for an example.
-
-Optionally, you might want to have multiple bash scripts.  For example, if you have a latex `[REMARKname].tex` it will probably prove convenient to have a
-##### `reproduce_textetc.sh`
-script just to compile it.  If you do this, your main `reproduce.sh` script could invoke the `reproduce_textetc.sh` script to accomplish the reproduction of the latex document.
-
-In that case, you might also want to have a standalone
-##### `reproduce_results.sh`
-to reproduce the computational results without the latex.  Your `reproduce.sh` script could then be very simple: It would just run `reproduce_results.sh` and `reproduce_textetc.sh`
-
-If reproducing of the results of the project takes a long time, you are encouraged to have a
-##### `reproduce_min.sh`
-script that reproduces some interesting a subset of the results in some shorter amount of time (ideally, 5 min or less -- please include some indication of how long the scripts take).
-
-### Accomplishing Reproduction
-
-After installing the requirements described below, all results of the project should be reproducible by executing the following command from the command line in this directory
-```
-$ nbreproduce reproduce.sh
-```
-or similarly for any other available script (e.g., `nbreproduce reproduce_min.sh`)
-
-### How to install nbreproduce?
-
-Detailed documentation about `nbreproduce` is at [https://econ-ark.github.io/nbreproduce/](https://econ-ark.github.io/nbreproduce/).
-
-`nbreproduce` is available through PyPI and depends on [Docker](https://www.docker.com/products/docker-desktop).
-
-If you already have Docker installed locally you can install `nbreproduce` using
-```
-$ pip install nbreproduce # make sure you have Docker installed on your machine.
+```bash
+docker build -t remark-starter-example .
+docker run --rm --user "$(id -u):$(id -g)" \
+    -v "$PWD/results:/app/results" -v "$PWD/figures:/app/figures" remark-starter-example
 ```
 
-### What is a versioned requirements.txt file?
+The image holds Python and every package; running it runs `reproduce.sh`. The two `-v`
+options put the results in this folder, and `--user` makes the files yours rather than
+root's. The base image is pinned by its digest, so the image is the same wherever it is built.
 
-A requirements file tells the exact dependencies required to run the code. This currently only supports packages available on PyPI.
+### With uv
 
-For example if you use econ-ark, numpy, pandas, seaborn and voila in your REMARK notebooks and code a requirements file that would work right now would look like:
-```
-econ-ark
-numpy
-pandas
-seaborn
-voila
-```
-But this file misses out an important detail which is absolutely necessary to make sure your code is reproducible across systems and in the future, python package versions. A versioned requirements file would look like:
-```
-econ-ark==0.10.7
-numpy==1.19.1
-seaborn==0.10.1
-pandas==1.1.1
-voila==0.1.22
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
+
+```bash
+./reproduce.sh
 ```
 
-### "Publishing" Your REMARKs
+uv installs the Python version named in `.python-version` (if you do not already have it)
+and the packages in `uv.lock` into `.venv`. To work with the notebooks yourself, start
+JupyterLab with `uv run jupyter lab`, or the dashboard with
+`uv run voila dashboard/REMARK-starter-example-dashboard.ipynb`.
 
-When you have finished creating a REMARK you can request that it be ["Published"](https://github.com/econ-ARK/REMARK/master/REMARK-Submission/README.md) on the Econ-ARK website.
+### With the REMARK command line tool
 
-### How to create mybinder links/buttons?
+The REMARK catalog's `cli.py` builds the environment from `binder/environment.yml` with
+[repo2docker](https://repo2docker.readthedocs.io/) and runs `reproduce.sh` in it, which is how
+the Econ-ARK team tests a submitted REMARK. In a clone of
+[econ-ark/REMARK](https://github.com/econ-ark/REMARK), add a catalog entry
+`REMARKs/REMARK-starter-example.yml`:
 
-- Go to https://mybinder.org
-- Fill up the URL field with the link to the repository (example: https://github.com/econ-ark/REMARK-template)
-- In path to notebook, fill up the path to notebook (in this example: `resources/code/template-example-notebook.ipynb`)
-- Click on the launch button to start the build
-- Click on the "Copy the text below, then paste into your README to show a binder badge" to get the markdown and rST text required to create the mybinder button.
+```yaml
+name: REMARK-starter-example
+remote: https://github.com/econ-ark/REMARK-starter-example
+title: REMARK Starter Example
+tag: v1.0.0
+```
+
+and run:
+
+```bash
+python cli.py pull REMARKs/REMARK-starter-example.yml
+python cli.py lint --tier 2 REMARKs/REMARK-starter-example.yml
+python cli.py build docker REMARKs/REMARK-starter-example.yml
+python cli.py execute docker REMARKs/REMARK-starter-example.yml
+```
+
+The [CLI guide](https://econ-ark.github.io/REMARK/cli-guide) explains each command.
+
+### On Binder
+
+The badges at the top open the notebook, or the dashboard, in your browser, with nothing to
+install. Binder builds its environment from `binder/`: `environment.yml` installs Python and
+uv, and `postBuild` installs the packages in `uv.lock` and makes them the notebooks' kernel.
+
+### The LaTeX document
+
+`reproduce_textetc.sh` compiles `REMARK-starter-example.tex` into
+`latex/REMARK-starter-example.pdf` from the figures. It needs a LaTeX installation
+(`pdflatex` and `bibtex`), which the Docker image does not include.
+
+## What is in this repository
+
+| File | What it is for | Required |
+| --- | --- | --- |
+| `reproduce.sh` | Regenerates every result | All tiers |
+| `Dockerfile` | Builds an image that runs `reproduce.sh` | All tiers |
+| `binder/environment.yml` | The environment the REMARK tool and Binder build | All tiers |
+| `pyproject.toml` | The packages the code uses, edited by hand | With uv |
+| `uv.lock` | The exact version of every package, written by `uv lock` | All tiers (a lock file) |
+| `.python-version` | The exact Python version | With uv |
+| `LICENSE` | The terms of use (Apache 2.0) | All tiers |
+| `README.md` | This file: at least 50 non-empty lines for Tier 1, 100 for Tier 2 | All tiers |
+| `CITATION.cff` | How to cite the REMARK | Tiers 2 and 3 |
+| `REMARK.md` | The REMARK's tier, its notebooks and its abstract, for the website | Tiers 2 and 3 |
+| `binder/postBuild` | Installs `uv.lock`'s packages on Binder | With uv, for Binder |
+| `code/python/` | The notebook, and the module it imports | Yours to organize |
+| `dashboard/` | The interactive dashboard | Optional |
+| `figures/` | The figures `reproduce.sh` makes | Optional |
+| `REMARK-starter-example.tex`, `latex/` | The LaTeX document, its bibliography and the compiled PDF | Optional |
+| `reproduce_textetc.sh` | Compiles the LaTeX document | Optional |
+
+Every tier also requires a tagged release; this one is tagged `v1.0.0`. A REMARK whose
+`reproduce.sh` takes five minutes or more should also have a `reproduce_min.sh` that
+reproduces some of the results quickly. This one is fast enough not to need it.
+
+## Making your own REMARK from this one
+
+1. **Copy the repository.** Clone it, delete its `.git` folder, and push the files to a new
+   repository of your own; or use GitHub's "Import repository". Your REMARK stays under your
+   account.
+2. **Replace the code.** Put your notebooks and code in `code/`, and change `reproduce.sh` so
+   that it runs them. Keep it non-interactive: it must run from start to finish with nobody
+   at the keyboard, and fail (exit with a nonzero code) if anything goes wrong.
+3. **Declare your packages.** Add each one with `uv add <package>` (or edit `pyproject.toml`
+   and run `uv lock`), and commit both `pyproject.toml` and `uv.lock`. Change
+   `.python-version`, the Dockerfile's base image and `binder/environment.yml` together if
+   you need another Python version.
+4. **Rename the project** in `pyproject.toml`, `binder/environment.yml`, the Dockerfile's
+   comments and `REMARK.md`.
+5. **Write your README** with what the REMARK computes and how to reproduce it. The REMARK
+   catalog's [templates](https://github.com/econ-ark/REMARK/tree/main/templates) give an
+   outline for each tier.
+6. **Fill in `CITATION.cff` and `REMARK.md`** with your title, authors, abstract and tier.
+   The [CFF initializer](https://citation-file-format.github.io/cff-initializer-javascript/)
+   helps write a valid `CITATION.cff`.
+7. **Choose a license** and replace `LICENSE` if Apache 2.0 is not the one you want.
+8. **Check it.** Run `./reproduce.sh` from a fresh clone, then the REMARK tool's `lint`,
+   `build` and `execute` commands above with your own catalog entry.
+9. **Tag a release**, for example `git tag -a v1.0.0 -m "First release"` and
+   `git push origin v1.0.0`, and release a new tag for each later version.
+10. **Submit it** by opening a pull request on the REMARK catalog that adds your entry, as
+    [STANDARD.md](https://github.com/econ-ark/REMARK/blob/main/STANDARD.md) describes. For
+    Tier 3, get a Zenodo DOI first; the catalog's
+    [Zenodo guide](https://econ-ark.github.io/REMARK/zenodo-guide) shows how.
+
+## Keeping results reproducible
+
+- **Pin everything.** `uv.lock` pins every package, including the ones your packages depend
+  on; `.python-version` pins Python; the Dockerfile pins its base image by digest. The
+  `exclude-newer` date in `pyproject.toml` makes `uv lock` choose the same versions whenever
+  it runs; move it forward when you want newer packages.
+- **Fix the seed** of every random number generator, as `custom_code.py` does.
+- **Leave dates out of output files.** The figures are saved without a creation date, so a
+  run that gives the same results writes byte-for-byte the same files.
+- **Never edit results by hand.** Everything in `figures/` should come from `reproduce.sh`.
+
+## License and citation
+
+The code and text are released under the Apache License 2.0; see `LICENSE`. To cite this
+repository, use `CITATION.cff` (GitHub's "Cite this repository" button reads it).

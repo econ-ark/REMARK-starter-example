@@ -1,0 +1,14 @@
+# Adapter for Binder and the REMARK tooling. It installs Python and uv, which installs
+# every package the code needs from uv.lock (see postBuild and reproduce.sh).
+#
+# voila lets Binder open the dashboard. It belongs to Binder's Jupyter server, not to the
+# code, so it is pinned here rather than in uv.lock.
+name: remark-starter-example
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14.10
+  - pip
+  - pip:
+    - uv==0.13.6
+    - voila==0.5.13
